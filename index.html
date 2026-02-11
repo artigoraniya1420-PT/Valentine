@@ -1,26 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Ajit, Will You Be My Valentine? ❤️</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ajit, Will You Be My Valentine? ❤️</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
 
-<style>
-body{
-    margin:0;
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background: linear-gradient(135deg,#ff758c,#ff7eb3,#ffd3e0);
-    overflow:hidden;
-    text-align:center;
-    font-family:'Poppins', sans-serif;
-}
+  <style>
+    body{
+      margin:0;
+      min-height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      background: linear-gradient(135deg,#ff758c,#ff7eb3,#ffd3e0);
+      overflow:hidden;
+      text-align:center;
+      font-family:'Poppins', sans-serif;
+    }
 
-/* floating hearts */
-.heart{
-    position:fixed;
-    color:#ff4d88;
-    font-size:20p
+    /* floating hearts */
+    .heart{
+      position:fixed;
+      color:#ff4d88;
+      font-size:20px;
+      animation: floatUp 6s linear infinite;
+      opacity:0.75;
+      pointer-events:none;
+      z-index:0;
+    }
+    @keyframes floatUp{
+      0%{transform:translateY(110vh) scale(0.6);}
+      100%{transform:translateY(-10vh) scale(1.25);}
+    }
+
+    .container{
+      position:relative;
+      z-index:1;
+      background:white;
+      padding:48px 42px;
+      border-radius:28px;
+      box-shadow:0 15px 40px rgba(0,0,0,0.25);
+      max-width:520px;
+      width:calc(100% - 40px);
+    }
+
+    h1{
+      margin:0 0 18px 0;
+      color:#e6005c;
+      font-size:54px;
+      line-height:1.05;
+      font-family:'Great Vibes', cursive;
+      font-weight:400;
+    }
+
+    .sub{
+      margin:0 0 26px 0;
+      color:#7a0036;
+      font-size:16px;
+      opacity:0.85;
+    }
+
+    .buttons{
+      position:relative;
+      height:120px;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap:18px;
+    }
+
+    button{
+      padding:14px 28px;
+      font-size:18px;
+      border:none;
+      border-radius:999px;
+      cursor:pointer;
+      transition:transform 0.15s ease, box-shadow 0.15s ease;
+      box-shadow:0 10px 18px rgba(0,0,0,0.12);
+    }
+
+    #yes{
+      background:#ff4d88;
+      color:white;
+    }
+    #yes:hover{
+      transform:scale(1.08);
+      box-shadow:0 14px 24px rgba(0,0,0,0.16);
+    }
+
+    #no{
+      background:#d8d8d8;
+      color:#333;
+      position:absolute;
+      right:30px;
+      top:32px;
+    }
+
+    #message{
+      display:none;
+      margin-top:18px;
+      font-size:40px;
+      color:#cc0066;
+      font-family:'Great Vibes', cursive;
+      font-weight:400;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Ajit,<br/>Will You Be My Valentine? ❤️</h1>
+    <p class="sub">Choose wisely 😄</p>
+
+    <div class="buttons">
+      <button id="yes">YES 💖</button>
+      <button id="no">No 🙈</button>
+    </div>
+
+    <div id="message">
+      Thank you for choosing me ❤️<br/><br/>
+      That was the BEST decision you ever made 😉<br/><br/>
+      Happy Valentine’s Day, Ajit 💕
+    </div>
+  </div>
+
+  <script>
+    // Moving NO button
+    const noBtn = document.getElementById("no");
+
+    function moveButton(){
+      const padding = 20;
+      const btnW = noBtn.offsetWidth || 110;
+      const btnH = noBtn.offsetHeight || 48;
+
+      const x = Math.random() * (window.innerWidth - btnW - padding*2) + padding;
+      const y = Math.random() * (window.innerHeight - btnH - padding*2) + padding;
+
+      noBtn.style.left = x + "px";
+      noBtn.style.top  = y + "px";
+    }
+
+    noBtn.addEventListener("mouseover", moveButton);
+    noBtn.addEventListener("click", moveButton);
+
+    // YES button
+    document.getElementById("yes").addEventListener("click", () => {
+      document.getElementById("message").style.display = "block";
+      document.getElementById("yes").style.display = "none";
+      document.getElementById("no").style.display  = "none";
+    });
+
+    // Floating hearts
+    setInterval(() => {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.textContent = "❤️";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = (Math.random() * 18 + 14) + "px";
+      heart.style.animationDuration = (Math.random() * 2 + 5) + "s";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 7000);
+    }, 450);
+  </script>
+</body>
+</html>
